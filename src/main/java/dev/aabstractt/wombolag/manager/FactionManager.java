@@ -54,10 +54,17 @@ public final class FactionManager {
     private void cacheFaction(@NonNull Faction faction) {
         this.factionUUIDMap.put(faction.getConvertedId(), faction);
         this.factionNameMap.put(faction.getName().toLowerCase(), faction.getConvertedId());
+
+        faction.getMembers().forEach(member -> this.cacheMember(member, faction.getConvertedId()));
     }
 
     public @Nullable Faction getPlayerFaction(@NonNull Player nukkitPlayer) {
         UUID factionId = this.playerFactionMap.get(nukkitPlayer.getLoginChainData().getXUID());
+        return factionId != null ? this.factionUUIDMap.get(factionId) : null;
+    }
+
+    public @Nullable Faction getPlayerFaction(@NonNull String name) {
+        UUID factionId = this.playerNameFactionMap.get(name.toLowerCase());
         return factionId != null ? this.factionUUIDMap.get(factionId) : null;
     }
 

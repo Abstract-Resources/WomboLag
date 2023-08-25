@@ -1,7 +1,7 @@
-package dev.aabstractt.wombolag.profile;
+package dev.aabstractt.wombolag.shared.profile;
 
-import dev.aabstractt.wombolag.manager.ProfileManager;
-import dev.aabstractt.wombolag.repository.codec.Storable;
+import dev.aabstractt.wombolag.shared.manager.ProfileManager;
+import dev.aabstractt.wombolag.shared.repository.codec.Storable;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

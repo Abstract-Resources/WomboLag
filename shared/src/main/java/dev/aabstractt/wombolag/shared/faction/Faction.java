@@ -1,6 +1,6 @@
-package dev.aabstractt.wombolag.faction;
+package dev.aabstractt.wombolag.shared.faction;
 
-import dev.aabstractt.wombolag.repository.codec.Storable;
+import dev.aabstractt.wombolag.shared.repository.codec.Storable;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

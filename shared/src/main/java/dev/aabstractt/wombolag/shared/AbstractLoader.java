@@ -1,10 +1,10 @@
-package dev.aabstractt.wombolag;
+package dev.aabstractt.wombolag.shared;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.NonNull;
 
-public class WomboLoader {
+public class AbstractLoader {
 
     public final static @NonNull Gson GSON = new GsonBuilder()
             .serializeNulls()

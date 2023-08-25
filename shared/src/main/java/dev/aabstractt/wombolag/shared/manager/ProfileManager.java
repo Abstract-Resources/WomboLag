@@ -1,8 +1,8 @@
-package dev.aabstractt.wombolag.manager;
+package dev.aabstractt.wombolag.shared.manager;
 
-import dev.aabstractt.wombolag.profile.Profile;
-import dev.aabstractt.wombolag.profile.Sender;
-import dev.aabstractt.wombolag.repository.MongoRepository;
+import dev.aabstractt.wombolag.shared.profile.Profile;
+import dev.aabstractt.wombolag.shared.profile.Sender;
+import dev.aabstractt.wombolag.shared.repository.MongoRepository;
 import lombok.Getter;
 import lombok.NonNull;
 

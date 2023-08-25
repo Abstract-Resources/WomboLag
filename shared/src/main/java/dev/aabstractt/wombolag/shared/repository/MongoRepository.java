@@ -1,4 +1,4 @@
-package dev.aabstractt.wombolag.repository;
+package dev.aabstractt.wombolag.shared.repository;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -8,8 +8,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
-import dev.aabstractt.wombolag.WomboLoader;
-import dev.aabstractt.wombolag.repository.codec.Storable;
+import dev.aabstractt.wombolag.shared.AbstractLoader;
+import dev.aabstractt.wombolag.shared.repository.codec.Storable;
 import lombok.NonNull;
 import org.bson.Document;
 
@@ -63,7 +63,7 @@ public final class MongoRepository<O extends Storable> {
             throw new IllegalStateException("MongoCollection cannot be null!");
         }
 
-        String json = WomboLoader.GSON.toJson(storable);
+        String json = AbstractLoader.GSON.toJson(storable);
         if (json.isBlank() || json.isEmpty()) {
             throw new IllegalArgumentException("JSON cannot be null or empty!");
         }
@@ -85,7 +85,7 @@ public final class MongoRepository<O extends Storable> {
             return null;
         }
 
-        return WomboLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class);
+        return AbstractLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class);
     }
 
     public @Nullable O findOne(@NonNull String id) {
@@ -98,7 +98,7 @@ public final class MongoRepository<O extends Storable> {
             return null;
         }
 
-        return WomboLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class);
+        return AbstractLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class);
     }
 
     public @NonNull List<O> findAll() {
@@ -107,7 +107,7 @@ public final class MongoRepository<O extends Storable> {
         }
 
         return this.mongoCollection.find()
-                .map(document -> WomboLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class))
+                .map(document -> AbstractLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class))
                 .into(new ArrayList<>());
     }
 }

@@ -1,4 +1,4 @@
-package dev.aabstractt.wombolag.faction;
+package dev.aabstractt.wombolag.shared.faction;
 
 import lombok.Builder;
 import lombok.NonNull;

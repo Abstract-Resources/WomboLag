@@ -1,6 +1,6 @@
-package dev.aabstractt.wombolag.faction.impl;
+package dev.aabstractt.wombolag.shared.faction.impl;
 
-import dev.aabstractt.wombolag.faction.Faction;
+import dev.aabstractt.wombolag.shared.faction.Faction;
 import lombok.NonNull;
 
 public final class PlayerFaction extends Faction {

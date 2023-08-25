@@ -1,4 +1,4 @@
-package dev.aabstractt.wombolag.profile;
+package dev.aabstractt.wombolag.shared.profile;
 
 import lombok.NonNull;
 

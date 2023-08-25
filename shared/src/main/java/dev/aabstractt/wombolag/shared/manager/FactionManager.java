@@ -1,11 +1,11 @@
-package dev.aabstractt.wombolag.manager;
+package dev.aabstractt.wombolag.shared.manager;
 
 import cn.nukkit.Player;
 import com.google.common.collect.Maps;
-import dev.aabstractt.wombolag.faction.Faction;
-import dev.aabstractt.wombolag.faction.FactionMember;
-import dev.aabstractt.wombolag.faction.impl.PlayerFaction;
-import dev.aabstractt.wombolag.repository.MongoRepository;
+import dev.aabstractt.wombolag.shared.faction.Faction;
+import dev.aabstractt.wombolag.shared.faction.FactionMember;
+import dev.aabstractt.wombolag.shared.faction.impl.PlayerFaction;
+import dev.aabstractt.wombolag.shared.repository.MongoRepository;
 import lombok.Getter;
 import lombok.NonNull;
 

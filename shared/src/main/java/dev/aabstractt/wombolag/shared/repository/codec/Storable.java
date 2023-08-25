@@ -1,4 +1,4 @@
-package dev.aabstractt.wombolag.repository.codec;
+package dev.aabstractt.wombolag.shared.repository.codec;
 
 import lombok.NonNull;
 

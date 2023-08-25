@@ -12,8 +12,8 @@ import dev.aabstractt.wombolag.shared.AbstractLoader;
 import dev.aabstractt.wombolag.shared.repository.codec.Storable;
 import lombok.NonNull;
 import org.bson.Document;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +25,8 @@ public final class MongoRepository<O extends Storable> {
     public void init(@NonNull String uri) {
         System.out.println("uri: " + uri);
 
-        try {
-            ConnectionString connectionString = new ConnectionString(uri);
-
-            MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()
-                    .applyConnectionString(connectionString)
-                    .build()
-            );
-
+        ConnectionString connectionString = new ConnectionString(uri);
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             System.out.println("Mongodb > " + connectionString.getDatabase());
 
             if (connectionString.getDatabase() == null || connectionString.getCollection() == null) {

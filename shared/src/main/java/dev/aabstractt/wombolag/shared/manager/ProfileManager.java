@@ -5,8 +5,8 @@ import dev.aabstractt.wombolag.shared.profile.Sender;
 import dev.aabstractt.wombolag.shared.repository.MongoRepository;
 import lombok.Getter;
 import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.function.Function;
 
 public final class ProfileManager {
@@ -15,9 +15,9 @@ public final class ProfileManager {
 
     private @Nullable MongoRepository<Profile> mongoRepository = null;
 
-    @Getter private @Nullable Function<@NonNull String, @NonNull Sender> wrapperSender;
+    @Getter private @Nullable Function<@NonNull String, @Nullable Sender> wrapperSender;
 
-    public void init(@NonNull String uri, @NonNull Function<@NonNull String, @NonNull Sender> wrapperSender) {
+    public void init(@NonNull String uri, @NonNull Function<@NonNull String, @Nullable Sender> wrapperSender) {
         this.mongoRepository = new MongoRepository<>();
         this.mongoRepository.init(uri);
 

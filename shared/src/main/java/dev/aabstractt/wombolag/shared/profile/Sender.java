@@ -1,8 +1,7 @@
 package dev.aabstractt.wombolag.shared.profile;
 
 import lombok.NonNull;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public interface Sender {
 

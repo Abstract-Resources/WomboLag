@@ -26,8 +26,6 @@ public final class WomboPlugin extends JavaPlugin {
                 return null;
             }
 
-            floodgatePlayer.isFromProxy()
-
             return new SpigotSender(
                     floodgatePlayer.getXuid(),
                     floodgatePlayer.getCorrectUsername()

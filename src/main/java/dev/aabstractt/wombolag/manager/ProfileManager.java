@@ -1,11 +1,13 @@
 package dev.aabstractt.wombolag.manager;
 
 import dev.aabstractt.wombolag.profile.Profile;
+import dev.aabstractt.wombolag.profile.Sender;
 import dev.aabstractt.wombolag.repository.MongoRepository;
 import lombok.Getter;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
+import java.util.function.Function;
 
 public final class ProfileManager {
 
@@ -13,9 +15,13 @@ public final class ProfileManager {
 
     private @Nullable MongoRepository<Profile> mongoRepository = null;
 
-    public void init(@NonNull String uri) {
+    @Getter private @Nullable Function<@NonNull String, @NonNull Sender> wrapperSender;
+
+    public void init(@NonNull String uri, @NonNull Function<@NonNull String, @NonNull Sender> wrapperSender) {
         this.mongoRepository = new MongoRepository<>();
         this.mongoRepository.init(uri);
+
+        this.wrapperSender = wrapperSender;
     }
 
     public void load(@NonNull String xuid, @NonNull String name) {

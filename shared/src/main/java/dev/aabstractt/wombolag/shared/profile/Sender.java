@@ -5,9 +5,13 @@ import org.jetbrains.annotations.Nullable;
 
 public interface Sender {
 
+    @NonNull String CONSOLE_NAME = "CONSOLE";
+
     @NonNull String getName();
 
     @NonNull String getId();
+
+    boolean hasPermission(@NonNull String permission);
 
     void sendMessage(@NonNull String message);
 

@@ -1,10 +1,9 @@
 package dev.aabstractt.wombolag.shared.manager;
 
-import cn.nukkit.Player;
-import com.google.common.collect.Maps;
 import dev.aabstractt.wombolag.shared.faction.Faction;
 import dev.aabstractt.wombolag.shared.faction.FactionMember;
 import dev.aabstractt.wombolag.shared.faction.impl.PlayerFaction;
+import dev.aabstractt.wombolag.shared.profile.Sender;
 import dev.aabstractt.wombolag.shared.repository.MongoRepository;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,6 +11,7 @@ import lombok.NonNull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class FactionManager {
 
@@ -20,11 +20,11 @@ public final class FactionManager {
 
     private @Nullable MongoRepository<Faction> mongoRepository = null;
 
-    private final @NonNull Map<UUID, Faction> factionUUIDMap = Maps.newConcurrentMap();
-    private final @NonNull Map<String, UUID> factionNameMap = Maps.newConcurrentMap();
+    private final @NonNull Map<UUID, Faction> factionUUIDMap = new ConcurrentHashMap<>();
+    private final @NonNull Map<String, UUID> factionNameMap = new ConcurrentHashMap<>();
 
-    private final @NonNull Map<@NonNull String, UUID> playerFactionMap = Maps.newConcurrentMap();
-    private final @NonNull Map<@NonNull String, UUID> playerNameFactionMap = Maps.newConcurrentMap();
+    private final @NonNull Map<@NonNull String, UUID> playerFactionMap = new ConcurrentHashMap<>();
+    private final @NonNull Map<@NonNull String, UUID> playerNameFactionMap = new ConcurrentHashMap<>();
 
     public void init(@NonNull String uri) {
         this.mongoRepository = new MongoRepository<>();
@@ -58,8 +58,8 @@ public final class FactionManager {
         faction.getMembers().forEach(member -> this.cacheMember(member, faction.getConvertedId()));
     }
 
-    public @Nullable Faction getPlayerFaction(@NonNull Player nukkitPlayer) {
-        UUID factionId = this.playerFactionMap.get(nukkitPlayer.getLoginChainData().getXUID());
+    public @Nullable Faction getPlayerFaction(@NonNull Sender sender) {
+        UUID factionId = this.playerFactionMap.get(sender.getId());
         return factionId != null ? this.factionUUIDMap.get(factionId) : null;
     }
 

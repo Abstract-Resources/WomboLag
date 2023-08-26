@@ -22,6 +22,24 @@ public final class SpigotSender implements Sender {
     }
 
     @Override
+    public boolean hasPermission(@Nullable String permission) {
+        if (this.name.equals(Sender.CONSOLE_NAME)) {
+            return true;
+        }
+
+        Player bukkitPlayer = this.toBukkitPlayer();
+        if (bukkitPlayer == null || !bukkitPlayer.isOnline()) {
+            return false;
+        }
+
+        if (permission == null) {
+            return true;
+        }
+
+        return bukkitPlayer.hasPermission(permission);
+    }
+
+    @Override
     public void sendMessage(@NonNull String message) {
         Player bukkitPlayer = this.toBukkitPlayer();
         if (bukkitPlayer == null || !bukkitPlayer.isOnline()) {

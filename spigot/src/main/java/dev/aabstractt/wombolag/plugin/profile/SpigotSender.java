@@ -27,13 +27,13 @@ public final class SpigotSender implements Sender {
             return true;
         }
 
+        if (permission == null) {
+            return true;
+        }
+
         Player bukkitPlayer = this.toBukkitPlayer();
         if (bukkitPlayer == null || !bukkitPlayer.isOnline()) {
             return false;
-        }
-
-        if (permission == null) {
-            return true;
         }
 
         return bukkitPlayer.hasPermission(permission);

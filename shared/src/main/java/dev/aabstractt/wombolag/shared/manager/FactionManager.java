@@ -58,6 +58,11 @@ public final class FactionManager {
         faction.getMembers().forEach(member -> this.cacheMember(member, faction.getConvertedId()));
     }
 
+    public @Nullable Faction getFactionByName(@NonNull String factionName) {
+        UUID factionId = this.factionNameMap.get(factionName.toLowerCase());
+        return factionId != null ? this.factionUUIDMap.get(factionId) : null;
+    }
+
     public @Nullable Faction getPlayerFaction(@NonNull Sender sender) {
         UUID factionId = this.playerFactionMap.get(sender.getId());
         return factionId != null ? this.factionUUIDMap.get(factionId) : null;

@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 public interface Sender {
 
     @NonNull String CONSOLE_NAME = "CONSOLE";
+    @NonNull String CONSOLE_XUID = "00000000000";
 
     @NonNull String getName();
 

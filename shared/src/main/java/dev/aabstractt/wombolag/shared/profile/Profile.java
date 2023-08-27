@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Function;
 
 @RequiredArgsConstructor @Data
@@ -17,6 +18,8 @@ public final class Profile implements Storable {
 
     private @Nullable String name;
     private @Nullable String lastName;
+
+    private @Nullable UUID factionId = null;
 
     public boolean isOutdated(@NonNull String currentName) {
         return !Objects.equals(this.name, currentName);

@@ -17,8 +17,15 @@ public final class WomboPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        FactionManager.getInstance().init("uri");
-        ProfileManager.getInstance().init("uri/profiles", playerName -> {
+        this.saveDefaultConfig();
+
+        String mongouri = this.getConfig().getString("mongouri");
+        if (mongouri == null) {
+            throw new IllegalStateException("Mongo URI is null!");
+        }
+
+        FactionManager.getInstance().init(String.format(mongouri, "factions"));
+        ProfileManager.getInstance().init(String.format(mongouri, "hcf_profiles"), playerName -> {
             Player bukkitPlayer = Bukkit.getPlayer(playerName);
             if (bukkitPlayer == null) {
                 return null;

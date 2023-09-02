@@ -1,0 +1,11 @@
+name: WomboLag
+version: 1.0
+main: dev.aabstractt.wombolag.plugin.WomboPlugin
+author: aabstractt
+description: A plugin to help with lag
+commands:
+  faction:
+    description: WomboLag command
+    usage: /<command>
+
+    aliases: [f]

@@ -23,7 +23,7 @@ public final class ProfileManager {
 
     public void init(@NonNull String uri, @NonNull Function<@NonNull String, @Nullable Sender> wrapperSender) {
         this.mongoRepository = new MongoRepository<>();
-        this.mongoRepository.init(uri);
+        this.mongoRepository.init(uri, "hcf_profiles");
 
         this.wrapperSender = wrapperSender;
     }

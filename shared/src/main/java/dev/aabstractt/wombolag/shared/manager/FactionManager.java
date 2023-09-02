@@ -28,9 +28,9 @@ public final class FactionManager {
 
     public void init(@NonNull String uri) {
         this.mongoRepository = new MongoRepository<>();
-        this.mongoRepository.init(uri);
+        this.mongoRepository.init(uri, "factions");
 
-        this.mongoRepository.findAll().forEach(this::cacheFaction);
+        //this.mongoRepository.findAll().forEach(this::cacheFaction);
     }
 
     public @NonNull Faction createFaction(@NonNull String factionName, boolean admin) {

@@ -2,10 +2,7 @@ package dev.aabstractt.wombolag.shared.repository;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 import dev.aabstractt.wombolag.shared.AbstractLoader;
@@ -22,21 +19,21 @@ public final class MongoRepository<O extends Storable> {
 
     private @Nullable MongoCollection<Document> mongoCollection = null;
 
-    public void init(@NonNull String uri) {
+    public void init(@NonNull String uri, @NonNull String collectionName) {
         System.out.println("uri: " + uri);
 
         ConnectionString connectionString = new ConnectionString(uri);
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             System.out.println("Mongodb > " + connectionString.getDatabase());
 
-            if (connectionString.getDatabase() == null || connectionString.getCollection() == null) {
+            if (connectionString.getDatabase() == null) {
                 return;
             }
 
             MongoDatabase mongoDatabase = mongoClient.getDatabase(connectionString.getDatabase());
-            this.mongoCollection = mongoDatabase.getCollection(connectionString.getCollection());
+            this.mongoCollection = mongoDatabase.getCollection(collectionName);
         } catch (Exception e) {
-            e.fillInStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -100,8 +97,17 @@ public final class MongoRepository<O extends Storable> {
             throw new IllegalStateException("MongoCollection cannot be null!");
         }
 
-        return this.mongoCollection.find()
-                .map(document -> AbstractLoader.GSON.fromJson(document.toJson(), (Class<O>) Storable.class))
-                .into(new ArrayList<>());
+        List<O> list = new ArrayList<>();
+
+        try (MongoCursor<Document> mongoCursor = this.mongoCollection.find().cursor()) {
+            while (mongoCursor.hasNext()) {
+                list.add(AbstractLoader.GSON.fromJson(
+                        mongoCursor.next().toJson(),
+                        (Class<O>) Storable.class
+                ));
+            }
+        }
+
+        return list;
     }
 }

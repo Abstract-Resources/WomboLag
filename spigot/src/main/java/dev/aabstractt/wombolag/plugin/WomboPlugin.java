@@ -1,6 +1,7 @@
 package dev.aabstractt.wombolag.plugin;
 
 import dev.aabstractt.wombolag.plugin.listener.AsyncPlayerPreLoginListener;
+import dev.aabstractt.wombolag.plugin.listener.PlayerCommandPreProcessListener;
 import dev.aabstractt.wombolag.plugin.profile.SpigotSender;
 import dev.aabstractt.wombolag.shared.AbstractLoader;
 import dev.aabstractt.wombolag.shared.command.BaseCommand;
@@ -24,8 +25,8 @@ public final class WomboPlugin extends JavaPlugin {
             throw new IllegalStateException("Mongo URI is null!");
         }
 
-        FactionManager.getInstance().init(String.format(mongouri, "factions"));
-        ProfileManager.getInstance().init(String.format(mongouri, "hcf_profiles"), playerName -> {
+        FactionManager.getInstance().init(mongouri);
+        ProfileManager.getInstance().init(mongouri, playerName -> {
             Player bukkitPlayer = Bukkit.getPlayer(playerName);
             if (bukkitPlayer == null) {
                 return null;
@@ -43,6 +44,7 @@ public final class WomboPlugin extends JavaPlugin {
         });
 
         this.getServer().getPluginManager().registerEvents(new AsyncPlayerPreLoginListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerCommandPreProcessListener(), this);
 
         BaseCommand factionCommand = AbstractLoader.getInstance().buildFactionsCommand();
         this.getServer().getPluginCommand("faction").setExecutor((commandSender, command, s, strings) -> {
